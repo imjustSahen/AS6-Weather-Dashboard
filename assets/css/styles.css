@@ -50,9 +50,9 @@ main {
   align-items: center;
 }
 
-.blocks {
+.forecast-events {
   display: flex;
-  flex-direction: column;
+  flex-direction: column;;
   align-items: center;
   border: 2px solid white;
   margin: 5px;
@@ -62,10 +62,10 @@ main {
   background-color: aliceblue;
 }
 
-.blocks:hover {
+/* .blocks:hover {
   transform: rotate(0deg);
   box-shadow: 5px 3px 8px 2px rgba(143, 143, 143, 0.505);
-}
+} */
 
 footer {
   background-color: black;

@@ -1,4 +1,3 @@
-var googleAPI = "AIzaSyB1ArNm35-pDU9CT9n74ika7gUKkm-_aB4";
 var APIKey = "3a6c0dad8c31e32a34e1dd280e179896";
 var weatherApiRootUrl = "https://api.openweathermap.org";
 var searchHistory = [];
@@ -73,28 +72,94 @@ searchBox.addListener("places_changed", async function getCity() {
 
       console.log(data, place.formatted_address);
       showPosition(data, place.formatted_address);
+    })
+    .catch(function (err) {
+      console.error(err);
     });
 });
 
 const WeatherAPI = "3a6c0dad8c31e32a34e1dd280e179896";
-// let requestUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${WeatherAPI}`;
 
 function showPosition() {
-  fetch(
-    `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${WeatherAPI}&units=imperial`
-  )
-    .then(function (response) {
-      return response.json();
-    })
-    .then(function (data) {
-      console.log("Fetch Response \n-------------");
-      console.log(data);
-    })
-    .catch(function (err) {
+  $.ajax({
+    type: "GET",
+    url: `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${WeatherAPI}&units=imperial`,
+    async: true,
+    dataType: "json",
+    success: function (json) {
+      console.log(json);
+      showWeatherForcastDayOne(json);
+      showWeatherForcastDayTwo(json);
+      showWeatherForcastDayThree(json);
+    },
+    error: function (err) {
       console.log(err);
-    });
+    },
+  });
 }
 
-function showWeatherForest(json) {
-  const items = $("#events");
+function showWeatherForcastDayOne(json) {
+  const items = $("#forecast-events-one");
+  const events = json.list;
+  const weatherParent = document.querySelector(".forecast-container");
+  const weatherChild = document.querySelector(".forecast-events");
+  const weatherTemp = document.createElement('div');
+  weatherChild.appendChild(weatherTemp).textContent = `Temp: ${events[0].main.temp}`;
+  console.log(weatherChild);
+  // for (let i = 0; i < events.length; i++) {
+
+  // }
+
+
+  // let i = 0;
+  // items.children(".weather-temp").text(`Temp: + ${events[i].main.temp}`);
+  // items.children(".weather-wind").text(`Wind: + ${events[i].wind.speed}`);
+  // items
+  //   .children(".weather-humidity")
+  //   .text(`Humidity: + ${events[i].main.humidity}`);
+  // console.log(
+  //   items.children("weather-temp").text(`Temp + ${events[i].main.temp}`)
+  // );
+}
+
+// function showWeatherForcastDayOne(json) {
+//   const items = $("#forecast-events-one");
+//   const events = json.list;
+//   let i = 0;
+//   items.children(".weather-temp").text(`Temp: + ${events[i].main.temp}`);
+//   items.children(".weather-wind").text(`Wind: + ${events[i].wind.speed}`);
+//   items
+//     .children(".weather-humidity")
+//     .text(`Humidity: + ${events[i].main.humidity}`);
+//   console.log(
+//     items.children("weather-temp").text(`Temp + ${events[i].main.temp}`)
+//   );
+// }
+
+function showWeatherForcastDayTwo(json) {
+  const items = $("#forecast-events-two");
+  const events = json.list;
+  let i = 1;
+  items.children(".weather-temp").text(`Temp: + ${events[i].main.temp}`);
+  items.children(".weather-wind").text(`Wind: + ${events[i].wind.speed}`);
+  items
+    .children(".weather-humidity")
+    .text(`Humidity: + ${events[i].main.humidity}`);
+  console.log(
+    items.children("weather-temp").text(`Temp + ${events[i].main.temp}`)
+  );
+}
+
+function showWeatherForcastDayThree(json) {
+  const items = $("#forecast-events-three");
+  const events = json.list;
+  let i = 2;
+  items.children(".weather-temp").text(`Temp: + ${events[i].main.temp}`);
+  items.children(".weather-wind").text(`Wind: + ${events[i].wind.speed}`);
+  items
+    .children(".weather-humidity")
+    .text(`Humidity: + ${events[i].main.humidity}`);
+  console.log(
+    items.children("weather-temp").text(`Temp + ${events[i].main.temp}`)
+  );
 }
