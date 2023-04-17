@@ -2,84 +2,119 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./assets/css/styles.css">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Weather Dashboard</title>
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
+    <link rel="stylesheet" href="assets/css/styles.css" />
+    <title>My Weather Dashboard</title>
 </head>
 
 <body>
-    <header>
-        <h1>Check Your Weather</h1>
-        <p id="currentDate"></p>
+    <header class="jumbotron jumbotron-fluid text-white p-3 mb-2" id="header-color">
+        <div class="container text-center">
+            <h1>Weather Dashboard</h1>
+        </div>
     </header>
-
-    <main class="main-container">
-        <aside class="col sidebar">
+    <main class="row no-gutters">
+        <aside class="card w-25">
             <div>
-                <h2>Search</h2>
-                <div class="search_input_item">
-                    <input id="city" type="text" class="locationSearch" placeholder="Please Enter a City">
+                <div class="card-body bg-light">
+                    <h5 class="card-title">Search your City:</h5>
+                    <form id="search-city" class="form-inline">
+                        <div class="input-group">
+                            <div class="form-outline">
+                                <input id="search-input" type="search" class="form-control mr-0 pr-0"><button
+                                    id="search-button" type="submit" class="btn btn-primary ml-0"><i
+                                        class="fas fa-search"></i>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div>
+                    <ul class="list-group " id="searchListResults">
+                    </ul>
                 </div>
             </div>
         </aside>
-        <section class="col weather-content">
-            <div class="current-day">
-                <h2 class="location">City, Location</h2>
-                <p class="title">Temp: <span class="value" data-temperature></span></p>
-                <p class="title">Wind: <span class="value" data-wind></span></p>
-                <p class="title">Humidity: <span class="value" data-humidity></span></p>
-            </div>
-            <div class="forecast">
-                <h3>5-Day Forecast</h3>
-                <div class="forecast-container" id="weather-events">
-                    <a href="" class="forecast-events" id="forecast-events-one">
-                        <h4 class="date" data-date>Day 1</h4>
-                        <p class="weather-temp">Temp: </p>
-                        <p class="weather-wind">Wind: </p>
-                        <p class="weather-humidity">Humidity: </p>
-                    </a>
-                    <a href="" class="forecast-events" id="forecast-events-two">
-                        <h4 class="date" data-date>Day 2</h4>
-                        <p class="weather-temp">Temp: </p>
-                        <p class="weather-wind">Wind: </p>
-                        <p class="weather-humidity">Humidity: </p>
-                    </a>
-                    <a href="" class="forecast-events" id="forecast-events-three">
-                        <h4 class="date" data-date>Day 3</h4>
-                        <p class="weather-temp">Temp: </p>
-                        <p class="weather-wind">Wind: </p>
-                        <p class="weather-humidity">Humidity: </p>
-                    </a>
-                    <!-- <a href="#" class="list-group-item">
-                        <h4 id="event1" value="" class="list-group-item-heading"></h4>
-                    </a>
-                    <a href="#" class="list-group-item">
-                        <h4 id="event2" class="list-group-item-heading"></h4>
-                    </a>
-                    <a href="#" class="list-group-item">
-                        <h4 id="event3" class="list-group-item-heading"></h4>
-                    </a> -->
+
+        <section class="w-75 px-3 no-gutters">
+            <div class=container>
+                <div class="card border-dark mb-3">
+                    <div class="card-header font-weight-bold">
+                        <h3 id="currentCityName"></h3>
+                        <span id="day-0-date"></span>
+                        <img id="day-0-icon" src="">
+                    </div>
+                    <div class="card-body text-dark">
+                        <p class="card-text">Temperature: <span id="day-0-temp"></span></p>
+                        <p class="card-text">Humidity: <span id="day-0-hum"></span></p>
+                        <p class="card-text">Wind Speed: <span id="day-0-wind"></span></p>
+                        <p class="card-text">UV Index: <span id="day-0-UV"></span></p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">5-Day Forecast:</h5>
+                        <div class="card-deck">
+                            <div class="card bg-primary text-light">
+                                <div class="card-body">
+                                    <h5 class="card-text"><span id="day-1-date"></span></h5>
+                                    <p class="card-text"><img id="day-1-icon" src=""></p>
+                                    <p class="card-text" id="day-1-temp"></p>
+                                    <p class="card-text" id="day-1-hum"></p>
+                                </div>
+                            </div>
+                            <div class="card bg-primary text-light">
+                                <div class="card-body">
+                                    <h5 class="card-text" id="day-2-date"></h5>
+                                    <p class="card-text"><img id="day-2-icon" src=""></p>
+                                    <p class="card-text" id="day-2-temp"></p>
+                                    <p class="card-text" id="day-2-hum"></p>
+                                </div>
+                            </div>
+                            <div class="card bg-primary text-light">
+                                <div class="card-body">
+                                    <h5 class="card-text" id="day-3-date"></h5>
+                                    <p class="card-text"><img id="day-3-icon" src=""></p>
+                                    <p class="card-text" id="day-3-temp"></p>
+                                    <p class="card-text" id="day-3-hum"></p>
+                                </div>
+                            </div>
+                            <div class="card bg-primary text-light">
+                                <div class="card-body">
+                                    <h5 class="card-text" id="day-4-date"></h5>
+                                    <p class="card-text"><img id="day-4-icon" src=""></p>
+                                    <p class="card-text" id="day-4-temp"></p>
+                                    <p class="card-text" id="day-4-hum"></p>
+                                </div>
+                            </div>
+                            <div class="card bg-primary text-light">
+                                <div class="card-body">
+                                    <h5 class="card-text" id="day-5-date"></h5>
+                                    <p class="card-text"><img id="day-5-icon" src=""></p>
+                                    <p class="card-text" id="day-5-temp"></p>
+                                    <p class="card-text" id="day-5-hum"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-
         </section>
-
     </main>
-
     <footer>
-
+        <h5>Designed By:</h3>
+            <p><a href="http://github.com/imjustSahen" target="_blank" rel="noopener noreferrer">imjustSahen</a></p>
     </footer>
-
 </body>
-
 <script defer src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
-
-<script defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC52Imtkm1TYOjAhOxkQUNLFDxdljegbCI&libraries=places"></script>
-
-<script defer src="./assets/js/script.js"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+<script src="/assets/js/script.js"></script>
 
 </html>
